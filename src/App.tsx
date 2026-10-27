@@ -1,46 +1,60 @@
-import { motion } from "motion/react"
-
-const persons: { name: string; age: number }[] = [
-  { name: "Alice", age: 25 },
-  { name: "Bob", age: 30 },
-  { name: "Charlie", age: 35 },
-  { name: "David", age: 40 },
-  { name: "Eve", age: 45 },
-]
-
-const PersonCard = ({
-  name,
-  age,
-  position,
-}: {
-  name: string
-  age: number
-  position: number
-}) => {
-  return (
-    <motion.div
-      className="bg-white p-4 rounded shadow w-64"
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: 1, scale: 1, transition: { delay: position * 0.3 } }}
-    >
-      <h2 className="text-xl font-bold">{name}</h2>
-      <p>Age: {age}</p>
-      <p>{position}</p>
-    </motion.div>
-  )
-}
+import { motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "motion/react"
 
 export const App = () => {
+  const { scrollYProgress } = useScroll()
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    console.log("Page scroll:", latest)
+  })
+
+  const transformedProgress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
+
+  const width = useSpring(transformedProgress, { stiffness: 200, damping: 20 })
+
   return (
-    <div className="flex items-center justify-center flex-col h-dvh gap-4">
-      {persons.map((person, index) => (
-        <PersonCard
-          position={index}
-          key={person.name}
-          name={person.name}
-          age={person.age}
-        />
-      ))}
+    <div className="flex items-center justify-center flex-col gap-4">
+      <motion.div
+        className="fixed top-0 left-0 bg-purple-400 h-20 w-1/2"
+        style={{ width }}
+      ></motion.div>
+      <div className="w-full max-w-2xl rounded-lg p-4 bg-gray-100 aspect-video h-auto">
+        {" "}
+      </div>
+      <div className="w-full max-w-2xl rounded-lg p-4 bg-gray-100 aspect-video h-auto">
+        {" "}
+      </div>
+      <div className="w-full max-w-2xl rounded-lg p-4 bg-gray-100 aspect-video h-auto">
+        {" "}
+      </div>
+      <div className="w-full max-w-2xl rounded-lg p-4 bg-gray-100 aspect-video h-auto">
+        {" "}
+      </div>
+      <div className="w-full max-w-2xl rounded-lg p-4 bg-gray-100 aspect-video h-auto">
+        {" "}
+      </div>
+      <div className="w-full max-w-2xl rounded-lg p-4 bg-gray-100 aspect-video h-auto">
+        {" "}
+      </div>
+      <div className="w-full max-w-2xl rounded-lg p-4 bg-gray-100 aspect-video h-auto">
+        {" "}
+      </div>
+      <div className="w-full max-w-2xl rounded-lg p-4 bg-gray-100 aspect-video h-auto">
+        {" "}
+      </div>
+      <div className="w-full max-w-2xl rounded-lg p-4 bg-gray-100 aspect-video h-auto">
+        {" "}
+      </div>
+      <div className="w-full max-w-2xl rounded-lg p-4 bg-gray-100 aspect-video h-auto">
+        {" "}
+      </div>
+      <div className="w-full max-w-2xl rounded-lg p-4 bg-gray-100 aspect-video h-auto">
+        {" "}
+      </div>
+      <div className="w-full max-w-2xl rounded-lg p-4 bg-gray-100 aspect-video h-auto">
+        {" "}
+      </div>
+      <div className="w-full max-w-2xl rounded-lg p-4 bg-gray-100 aspect-video h-auto">
+        {" "}
+      </div>
     </div>
   )
 }
